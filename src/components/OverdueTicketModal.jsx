@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Modal, Button, Form, Alert, Badge, Toast, ToastContainer } from 'react-bootstrap';
+import { Modal, Button, Form, Alert, Badge } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { updateDueDate, updateStatus, addWorkLog } from '../store';
 
@@ -8,7 +8,7 @@ export default function OverdueTicketModal({ show, onHide, ticket }) {
   const [newDueDate, setNewDueDate] = useState('');
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
-  const [showSuccessToast, setShowSuccessToast] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
 
   // 오늘 날짜를 YYYY-MM-DD 형식으로 가져오기
@@ -23,7 +23,7 @@ export default function OverdueTicketModal({ show, onHide, ticket }) {
       setNewDueDate(nextDay.toISOString().split('T')[0]);
       setError('');
       setSuccessMessage('');
-      setShowSuccessToast(false);
+      setShowSuccessModal(false);
     }
   }, [ticket, show]);
 
@@ -53,7 +53,7 @@ export default function OverdueTicketModal({ show, onHide, ticket }) {
     setIsUpdating(true);
     setError('');
     setSuccessMessage('');
-    setShowSuccessToast(false);
+    setShowSuccessModal(false);
 
     try {
       dispatch(updateDueDate({ id: ticket.id, dueDate: newDueDate }));
@@ -86,13 +86,8 @@ export default function OverdueTicketModal({ show, onHide, ticket }) {
       
       dispatch(addWorkLog({ ticketId: ticket.id, workLog: newWorkLog }));
       
-      // 성공 토스트 표시
-      setShowSuccessToast(true);
-      
-      setTimeout(() => {
-        setShowSuccessToast(false);
-        onHide(); // 성공 후 모달 닫기
-      }, 3000);
+      // 성공 모달 표시
+      setShowSuccessModal(true);
       
     } catch (err) {
       setError('Failed to update due date. Please try again.');
@@ -210,28 +205,24 @@ export default function OverdueTicketModal({ show, onHide, ticket }) {
       </Modal.Footer>
     </Modal>
 
-    {/* 성공 토스트 팝업 */}
-    <ToastContainer position="top-center" style={{ zIndex: 1060 }}>
-      <Toast 
-        show={showSuccessToast} 
-        onClose={() => setShowSuccessToast(false)}
-        delay={3000}
-        autohide
-        bg="success"
-        style={{
-          minWidth: '400px',
-          fontSize: '16px',
-          fontWeight: 'bold'
-        }}
-      >
-        <Toast.Header closeButton>
-          <strong className="me-auto">✅ Success!</strong>
-        </Toast.Header>
-        <Toast.Body style={{ color: 'white', padding: '16px' }}>
-          {successMessage}
-        </Toast.Body>
-              </Toast>
-      </ToastContainer>
-    </>
+    {/* 성공 모달 */}
+    <Modal show={showSuccessModal} onHide={() => { setShowSuccessModal(false); onHide(); }} centered>
+      <Modal.Body style={{ textAlign: 'center', padding: '40px 24px' }}>
+        <div style={{ marginBottom: 24 }}>
+          <svg width="64" height="64" viewBox="0 0 64 64">
+            <circle cx="32" cy="32" r="30" fill="#e6f9ed" />
+            <polyline points="20,34 30,44 46,24" fill="none" stroke="#2ecc71" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </div>
+        <h4 style={{ color: '#2ecc71', marginBottom: 16 }}>Success!</h4>
+        <div style={{ color: '#222', fontSize: 18, marginBottom: 24 }}>
+          {successMessage || 'Due date has been successfully extended.'}
+        </div>
+        <Button variant="success" onClick={() => { setShowSuccessModal(false); onHide(); }}>
+          OK
+        </Button>
+      </Modal.Body>
+    </Modal>
+  </>
   );
 }
