@@ -1,12 +1,11 @@
-# React + Vite
+## Project Overview
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**For Non-Technical Readers**
 
-Currently, two official plugins are available:
+This system works like a digital task board where managers can create work requests (tickets) and assign them to team members. Employees can see their assigned tasks, update progress, and communicate through work logs. The system automatically tracks deadlines, sends alerts for overdue items, and provides real-time updates so everyone stays informed about project status.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+**For Technical Readers**: The application is built using React 18+ with functional components and hooks for state management. Redux Toolkit handles global state for tickets, users, and work logs, while React Router manages navigation between admin and employee dashboards. The UI is constructed with React Bootstrap components, ensuring responsive design across devices. LocalStorage provides data persistence, and the build process is optimised using Vite for fast development and efficient production builds.
 
-## Expanding the ESLint configuration
+### Future Roadmap
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+**Coming Soon**: Transforming this frontend solution into a full-stack powerhouse by integrating robust backend APIs and real-time database connectivity to deliver enterprise-grade scalability and performance!
