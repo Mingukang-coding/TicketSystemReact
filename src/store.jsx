@@ -320,7 +320,7 @@ export const selectTickets = state => state.tickets;
 // 직원 데이터 7명 (admin: mingu)
 const initialEmployees = [
   { id: 0, name: 'unassigned', email: 'unassigned@company.com', role: 'unassigned' },
-  { id: 1, name: 'mingu', email: 'mg.kang0518@gmail.com', role: 'admin' },
+  { id: 1, name: 'admin test', email: 'admin@company.com', role: 'admin' },
   { id: 2, name: 'John Doe', email: 'john@company.com', role: 'employee' },
   { id: 3, name: 'Jane Smith', email: 'jane@company.com', role: 'employee' },
   { id: 4, name: 'Mike Johnson', email: 'mike@company.com', role: 'employee' },

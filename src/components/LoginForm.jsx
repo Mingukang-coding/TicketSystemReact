@@ -76,7 +76,7 @@ export default function LoginForm({ onLogin }) {
           <div className="mt-3 p-3 bg-light rounded">
             <small className="text-muted">
               <strong>Test Accounts:</strong><br/>
-              Admin: mg.kang0518@gmail.com<br/>
+              Admin: admin@company.com<br/>
               Employee: john@company.com<br/>
               Password: any 3+ characters
             </small>
